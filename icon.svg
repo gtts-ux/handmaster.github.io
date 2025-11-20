@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" role="img" aria-label="HandMaster logo">
+  <rect width="72" height="72" rx="12" fill="#0a9d58" />
+  <g transform="translate(8,10)" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-weight="700">
+    <text x="6" y="40" font-size="34">HM</text>
+  </g>
+</svg>
