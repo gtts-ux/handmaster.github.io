@@ -1,3 +1,4 @@
+[index.html](https://github.com/user-attachments/files/23654032/index.html)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,138 @@
         <link rel="apple-touch-icon" href="icon.svg">
         <meta name="theme-color" content="#0a9d58">
 </head>
+        <style>
+                :root{
+	--bg: #ffffff;
+	--green: #0a9d58;
+	--green-dark: #067a41;
+	--muted: #6b7280;
+	--card: #f7fff9;
+	--max-width: 1100px;
+    /* default header offset for anchor scrolling (adjust if header size changes) */
+    --header-offset: 88px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+	margin:0;
+	font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	background:var(--bg);
+	color:#0f172a;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+}
+
+.container{max-width:var(--max-width);margin:0 auto;padding:1rem}
+
+.site-header{border-bottom:1px solid #eef2f1;background:#fff}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;padding:1rem 1rem}
+.logo{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none}
+.logo-text{font-weight:700;color:var(--green);font-size:1.2rem}
+.logo-img{width:36px;height:36px;display:inline-block;flex:0 0 36px;border-radius:6px}
+
+/* Dependencies table styles */
+.table-wrap{overflow:auto;margin-top:.5rem}
+.deps-table{width:100%;border-collapse:collapse;font-size:.95rem}
+.deps-table thead th{background:#f7fff9;padding:.6rem;border:1px solid #e6f3ea;text-align:left;color:var(--green)}
+.deps-table td{padding:.6rem;border:1px solid #eef3f0;background:#fff}
+.deps-table code{background:#f1fff6;padding:.12rem .35rem;border-radius:4px;font-family:SFMono-Regular,Consolas,monospace;color:#064c2c}
+.deps-table strong{color:var(--green)}
+.table-wrap::-webkit-scrollbar{height:8px}
+.table-wrap::-webkit-scrollbar-thumb{background:#d1f0db;border-radius:4px}
+
+/* Local file tree */
+.file-tree{font-family:inherit;background:transparent;padding:.5rem 0}
+.file-tree .dir-item{margin:6px 0}
+.file-tree .dir-title{font-weight:700;color:var(--green);padding:.2rem 0}
+.file-tree .dir-children{padding-left:1rem;border-left:2px solid #f1f7f3}
+.file-tree .file-item{padding:.15rem 0}
+.file-tree a{color:var(--green);text-decoration:none}
+.file-tree a:hover{text-decoration:underline}
+.nav a{margin-left:1rem;color:var(--muted);text-decoration:none}
+.nav a:hover{color:var(--green-dark)}
+
+.hero{padding:3rem 0}
+.hero-inner{display:flex;gap:2rem;align-items:stretch}
+.hero-text{flex:1}
+.hero h1{font-size:2rem;margin:0 0 .5rem;color:#0b5619}
+.lead{color:var(--muted);margin:0 0 1rem}
+.cta-row .btn{margin-right:.5rem}
+
+.hero-card{width:280px;background:linear-gradient(180deg,var(--card),#fff);padding:1rem;border-radius:10px;border:1px solid #009135}
+.hero-card h3{margin-top:0}
+
+.btn{display:inline-block;padding:.6rem 1rem;border-radius:8px;border:1px solid transparent;background:#fff;color:var(--green);text-decoration:none;font-weight:600;box-shadow:0 1px 0 rgba(2,6,23,0.03)}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--green);color:#fff}
+
+/* active state (applies to selected platform button) */
+.btn.active, .btn.active:hover{background:var(--green);color:#fff}
+
+
+.sections{padding:2rem 0;border-top:1px solid #f1f5f4}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.card{background:#fff;border-radius:8px;padding:1rem;border:1px solid #eef3f0}
+
+.download-row{display:flex;gap:1rem;flex-wrap:wrap}
+.download-card{flex:1;min-width:200px;border:1px dashed #378e57;padding:1rem;border-radius:8px;background:#fff}
+
+.usage-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.code{background:#0f172a;color:#3c7f54;padding:1rem;border-radius:6px;overflow:auto}
+
+.releases{list-style:none;padding-left:0;margin:0}
+.releases li{margin:0.6rem 0}
+.release-note{color:var(--muted);font-size:.95rem;margin-top:.25rem}
+
+/* Download panel overlay */
+.panel-overlay{display:none;position:fixed;inset:0;background:rgba(2,6,23,0.5);align-items:center;justify-content:center;padding:2rem;z-index:60}
+.panel{background:var(--bg);max-width:680px;width:100%;border-radius:10px;padding:1.2rem 1.4rem;box-shadow:0 10px 30px rgba(2,6,23,0.12);border:1px solid #479764}
+.panel h2{margin-top:0}
+.panel .releases{margin-top:0.6rem}
+.panel .releases a{color:var(--green);font-weight:600;text-decoration:none}
+.panel .releases a:hover{color:var(--green-dark)}
+.close-btn{position:absolute;right:1.2rem;top:1rem;border:0;background:var(--card);font-size:1.4rem;cursor:pointer;color:var(--green-dark);padding:.15rem .5rem;border-radius:6px;box-shadow:0 2px 6px rgba(2,6,23,0.06)}
+
+@media (max-width:520px){
+	.panel{padding:1rem;margin:1rem;border-radius:8px}
+	.close-btn{right:.8rem;top:.6rem}
+}
+
+.site-footer{border-top:1px solid #abf2d2;background:#abf2d2;padding:1rem 0;margin-top:2rem}
+.site-footer p{margin:0;color:var(--muted)}
+
+@media (max-width:800px){
+	.hero-inner{flex-direction:column}
+	.usage-grid{grid-template-columns:1fr}
+	.nav{display:none}
+}
+
+/* Make the header stick to the top while scrolling */
+.site-header{
+	position:sticky;
+	top:0;
+	z-index:30;
+}
+
+/* Ensure in-page anchor jumps account for the sticky header */
+html{scroll-padding-top:var(--header-offset)}
+/* apply margin so native anchor jumps land below the sticky header */
+section[id], .sections{scroll-margin-top:calc(var(--header-offset) - 8px)}
+
+/* When a fragment target is activated, insert an offset so the element is visible */
+:target::before{
+	content: "";
+	display:block;
+	height:var(--header-offset);
+	margin-top:calc(-1 * var(--header-offset));
+}
+
+@media (max-width:800px){
+	:root{--header-offset:64px}
+}[style.css](https://github.com/user-attachments/files/23654043/style.css)
+
+        </style>
 <body>
     <header class="site-header">
         <div class="container">
@@ -295,6 +428,7 @@ handmaster --service</pre>
             panel.setAttribute('aria-hidden','false');
             document.body.style.overflow = 'hidden';
         }
+[Uploading style.css…]()
 
         function closeDownloads(){
             panel.style.display = 'none';
