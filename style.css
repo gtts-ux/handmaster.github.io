@@ -1,5 +1,5 @@
 :root{
-	--bg: #ffffff;
+	--bg: #fbfbfd; /* slightly off-white background */
 	--green: #0a9d58;
 	--green-dark: #067a41;
 	--muted: #6b7280;
@@ -14,11 +14,18 @@ html,body{height:100%}
 body{
 	margin:0;
 	font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-	background:var(--bg);
+	background-color:var(--bg);
+	/* subtle white/gray triangle pattern using inline SVG */
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%23fbfbfd'/><stop offset='1' stop-color='%23f3f4f6'/></linearGradient></defs><rect width='120' height='120' fill='url(%23g)'/><polygon points='0,0 60,0 30,52' fill='%23f8f9fa' opacity='0.9'/><polygon points='60,0 120,0 90,52' fill='%23f3f4f6' opacity='0.8'/><polygon points='30,52 90,52 60,104' fill='%23f7f8f9' opacity='0.9'/></svg>");
+	background-repeat:repeat;
 	color:#0f172a;
 	-webkit-font-smoothing:antialiased;
 	-moz-osx-font-smoothing:grayscale;
-}
+	/* custom green circle cursor as an inline SVG data URL; hotspot at center (8 8) - made smaller */
+	cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><circle cx='6' cy='6' r='5' fill='%230a9d58' /></svg>") 6 6, auto;
+
+	/* Ensure interactive elements still show pointer when appropriate (smaller cursor) */
+	a, button { cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><circle cx='6' cy='6' r='5' fill='%230a9d58' /></svg>") 6 6, pointer; }
 
 .container{max-width:var(--max-width);margin:0 auto;padding:1rem}
 
@@ -50,11 +57,19 @@ body{
 .nav a:hover{color:var(--green-dark)}
 
 .hero{padding:3rem 0}
+/* Make the initial hero cover the viewport and use a clean white->light-green background */
+.hero{
+	min-height:100vh;
+	display:flex;
+	align-items:center;
+	background: linear-gradient(180deg,#ffffff 0%, #f7fff9 100%);
+}
 .hero-inner{display:flex;gap:2rem;align-items:stretch}
 .hero-text{flex:1}
 .hero h1{font-size:2rem;margin:0 0 .5rem;color:#0b5619}
 .lead{color:var(--muted);margin:0 0 1rem}
 .cta-row .btn{margin-right:.5rem}
+ 
 
 .hero-card{width:280px;background:linear-gradient(180deg,var(--card),#fff);padding:1rem;border-radius:10px;border:1px solid #009135}
 .hero-card h3{margin-top:0}
@@ -70,6 +85,9 @@ body{
 .sections{padding:2rem 0;border-top:1px solid #f1f5f4}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
 .card{background:#fff;border-radius:8px;padding:1rem;border:1px solid #eef3f0}
+
+/* Keep top-of-page content on a clean solid background so the pattern doesn't show through */
+/* (Removed per user request: pattern now applies site-wide) */
 
 .download-row{display:flex;gap:1rem;flex-wrap:wrap}
 .download-card{flex:1;min-width:200px;border:1px dashed #378e57;padding:1rem;border-radius:8px;background:#fff}
